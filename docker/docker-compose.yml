@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  python-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./data:/app/data  # Синхронизация локальной папки
+    container_name: python-app
+    command: ["python", "src/mapreduce.py"]
+
+  hadoop:
+    image: bde2020/hadoop-base:2.0.0-hadoop2.7.4-java8  # Готовый образ Hadoop
+    container_name: hadoop-node
+    environment:
+      - CLUSTER_NAME=test
